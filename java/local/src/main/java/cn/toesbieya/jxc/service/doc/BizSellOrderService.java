@@ -35,6 +35,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The type Biz sell order service.
+ */
 @Service
 @Slf4j
 public class BizSellOrderService {
@@ -49,7 +52,13 @@ public class BizSellOrderService {
     @Resource
     private RecService recService;
 
-    //组装子表、附件列表的数据
+    /**
+     * Gets by id.
+     *
+     * @param id the id
+     * @return the by id
+     */
+//组装子表、附件列表的数据
     public SellOrderVo getById(String id) {
         BizSellOrder main = mainMapper.selectById(id);
 
@@ -63,7 +72,13 @@ public class BizSellOrderService {
         return vo;
     }
 
-    //根据主表ID获取子表
+    /**
+     * Gets sub by id.
+     *
+     * @param id the id
+     * @return the sub by id
+     */
+//根据主表ID获取子表
     public List<BizSellOrderSub> getSubById(String id) {
         return subMapper.selectList(
                 Wrappers.lambdaQuery(BizSellOrderSub.class)
@@ -71,11 +86,24 @@ public class BizSellOrderService {
         );
     }
 
+    /**
+     * Search page result.
+     *
+     * @param vo the vo
+     * @return the page result
+     */
     public PageResult<BizSellOrder> search(SellOrderSearch vo) {
         PageHelper.startPage(vo.getPage(), vo.getPageSize());
         return new PageResult<>(mainMapper.selectList(getSearchCondition(vo)));
     }
 
+    /**
+     * Export.
+     *
+     * @param vo       the vo
+     * @param response the response
+     * @throws Exception the exception
+     */
     public void export(SellOrderSearch vo, HttpServletResponse response) throws Exception {
         List<SellOrderExport> list = mainMapper.export(getSearchCondition(vo));
         ExcelUtil.exportSimply(list, response, "销售订单导出");
@@ -87,6 +115,12 @@ public class BizSellOrderService {
         return addMain(doc);
     }
 
+    /**
+     * Update r.
+     *
+     * @param doc the doc
+     * @return the r
+     */
     @UserAction("'修改销售订单'+#doc.id")
     @Lock("#doc.id")
     @Transactional(rollbackFor = Exception.class)
@@ -94,6 +128,12 @@ public class BizSellOrderService {
         return updateMain(doc);
     }
 
+    /**
+     * Commit r.
+     *
+     * @param doc the doc
+     * @return the r
+     */
     @UserAction("'提交销售订单'+#doc.id")
     @Lock("#doc.id")
     @Transactional(rollbackFor = Exception.class)
@@ -120,6 +160,13 @@ public class BizSellOrderService {
         return result;
     }
 
+    /**
+     * Withdraw r.
+     *
+     * @param vo   the vo
+     * @param user the user
+     * @return the r
+     */
     @UserAction("'撤回销售订单'+#vo.id")
     @Lock("#vo.id")
     @Transactional(rollbackFor = Exception.class)
@@ -147,6 +194,13 @@ public class BizSellOrderService {
         return R.success("撤回成功");
     }
 
+    /**
+     * Pass r.
+     *
+     * @param vo   the vo
+     * @param user the user
+     * @return the r
+     */
     @UserAction("'通过销售订单'+#vo.id")
     @Lock("#vo.id")
     @Transactional(rollbackFor = Exception.class)
@@ -184,6 +238,13 @@ public class BizSellOrderService {
         return R.success("通过成功");
     }
 
+    /**
+     * Reject r.
+     *
+     * @param vo   the vo
+     * @param user the user
+     * @return the r
+     */
     @UserAction("'驳回销售订单'+#vo.id")
     @Lock("#vo.id")
     @Transactional(rollbackFor = Exception.class)
@@ -211,6 +272,12 @@ public class BizSellOrderService {
         return R.success("驳回成功");
     }
 
+    /**
+     * Del r.
+     *
+     * @param id the id
+     * @return the r
+     */
     @UserAction("'删除销售订单'+#id")
     @Lock("#id")
     @Transactional(rollbackFor = Exception.class)

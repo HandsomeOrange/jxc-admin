@@ -176,7 +176,7 @@ export default {
 
             setting: {
                 app: {
-                    navMode: 'mix'
+                    navMode: 'head'
                 },
                 page: {
                     position: 'left-right',

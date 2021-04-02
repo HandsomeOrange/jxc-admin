@@ -1,5 +1,8 @@
 package cn.toesbieya.jxc.util;
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -31,6 +34,15 @@ public class DateUtil {
         LocalDateTime t = time == null ? LocalDateTime.now() : time;
         DateTimeFormatter f = formatter == null ? defaultFormatter : formatter;
         return t.format(f);
+    }
+
+    public static long getDuration(String start, String end) {
+        if (StringUtils.isAnyBlank(start, end)) {
+            return 0L;
+        }
+        LocalDateTime startTime = LocalDateTime.parse(start, defaultFormatter);
+        LocalDateTime endTime = LocalDateTime.parse(end, defaultFormatter);
+        return Duration.between(startTime, endTime).getSeconds();
     }
 
     //获取今日零点的时间戳

@@ -8,7 +8,7 @@ module.exports = {
     contextPath,
 
     //页面标题、登录注册页的标题
-    title: 'BiuBiuBiu~',
+    title: 'ShopifyProductCollect',
 
     //logo地址
     logo: `${contextPath}static/img/logo.svg`,

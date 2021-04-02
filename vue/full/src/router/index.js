@@ -44,7 +44,8 @@ export const addDynamicRoutes = (() => {
     return (jsonTree) => {
         if (init) return
         init = true
-
+        // console.log('11\n')
+        // console.log(JSON.stringify(jsonTree))
         jsonTree = deepClone(jsonTree)
         const endRoute = {path: '*', redirect: '/404'}
         router.addRoutes([...generateRoutes(jsonTree), endRoute])

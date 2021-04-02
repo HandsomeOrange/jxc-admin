@@ -121,10 +121,8 @@ export function generateRoutes(jsonTree) {
             }
         })
     }
-
     mergeChildren(jsonTree)
     transform(jsonTree)
-
     return jsonTree
 }
 

@@ -11,6 +11,7 @@ const instance = axios.create({
     timeout: 60000 // request timeout
 })
 
+
 instance.interceptors.request.use(
     config => {
         //登录状态下socket断连时，除登出外中断一切请求
@@ -33,6 +34,12 @@ instance.interceptors.response.use(
         const res = response.data, {responseType = 'json'} = response.config
 
         //当返回类型非{status,data,msg}的接口请求时，不使用status来判断请求是否成功
+        // console.log('type '+ typeof(res))
+        if(typeof(res) === 'string')
+        {
+            return res
+        }
+
         if (!('status' in res) || res.status === 200) {
             //当返回类型为json时，返回response.data
             return responseType === 'json' ? res : response

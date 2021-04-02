@@ -23,7 +23,7 @@ export default {
                 buttons[0].type = 'primary'
             }
             return (
-                <el-row class="button-group">
+                <el-row class="button-group disable-button">
                     {buttons.map(button => {
                         if (!button) return
                         const {icon, type, content, e} = button

@@ -1,16 +1,21 @@
 export default {
     path: 'cool',
-    meta: {title: '好玩的东东', icon: 'el-icon-s-opportunity'},
+    meta: {title: 'Shopify导出', icon: 'el-icon-s-opportunity'},
     children: [
         {
             path: 'fluid',
             component: 'example/cool/fluid',
-            meta: {title: '流体动画'}
+            meta: {title: '单链接采集'}
         },
         {
             path: 'l2d',
             component: 'example/cool/l2d',
-            meta: {title: '看板娘'}
+            meta: {title: '多链接采集'}
+        },
+        {
+            path: 'collection',
+            component: 'example/cool/collection',
+            meta: {title: '按类别采集'}
         },
     ]
 }

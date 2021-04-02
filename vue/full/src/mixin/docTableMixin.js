@@ -10,11 +10,11 @@ export const commonMethods = {
     getStatus(status) {
         switch (status) {
             case 0:
-                return '拟定'
+                return '导出中'
             case 1:
-                return '待审核'
-            case 2:
-                return '已审核'
+                return '导出成功'
+            case -1:
+                return '导出失败'
         }
         return null
     },
@@ -72,11 +72,11 @@ export default {
             return {
                 pageLoading: this.config.operating,
                 buttons: [
-                    this.canAdd && {icon: 'el-icon-plus', e: this.add, content: '添 加'},
-                    {icon: 'el-icon-view', e: this.see, content: '查 看'},
-                    this.canUpdate && {icon: 'el-icon-edit', e: this.edit, content: '编 辑'},
-                    this.canDel && {icon: 'el-icon-delete', e: this.del, content: '删 除'},
-                    this.canExport && {icon: 'el-icon-download', e: this.downloadExcel, content: '导 出'}
+                    // this.canAdd && {icon: 'el-icon-plus', e: this.add, content: '添 加'},
+                    // {icon: 'el-icon-view', e: this.see, content: '查 看'},
+                    // this.canUpdate && {icon: 'el-icon-edit', e: this.edit, content: '编 辑'},
+                    // this.canDel && {icon: 'el-icon-delete', e: this.del, content: '删 除'},
+                    // this.canExport && {icon: 'el-icon-download', e: this.downloadExcel, content: '导 出'}
                 ],
                 dataLoading: this.config.loading,
                 search: {
@@ -102,8 +102,11 @@ export default {
             if (this.config.loading) return
             this.config.loading = true
             //折叠所有行
-            this.tableData.forEach(row => this.$children[0].$refs.table.toggleRowExpansion(row, false))
-            this.row = null
+            // this.tableData.forEach(row => this.$children[0].$refs.table.toggleRowExpansion(row, false))
+            // this.row = null
+            this.tableData.forEach(row => console.log(row))
+            // alert(this.tableData)
+            // this.tableData.append("")
             this.api.search
                 .request(this.mergeSearchForm())
                 .then(({data: {list, total}}) => {
